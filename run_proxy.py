@@ -71,7 +71,7 @@ async def broadcast(message, multi):
     wallet.broadcast(tx)
 
 async def accept():
-    async with nym_proxy.NymProxy(9002) as nym:
+    async with nym_proxy.NymProxy(9001) as nym:
         print("Server address =", await nym.details())
 
         multi = multipart.Multipart(nym)
