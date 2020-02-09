@@ -21,9 +21,13 @@ class NymProxy:
             "type": message_type,
             **params
         }
-        await self.ws.send(json.dumps(request_object))
+        request_message = json.dumps(request_object)
+        await self.ws.send(request_message)
 
-        response = json.loads(await self.ws.recv())
+        message = await self.ws.recv()
+        response = json.loads(message)
+        if response["type"] != "fetch" or response["messages"]:
+            print("Nym sent:", message)
         return response
 
     async def details(self):

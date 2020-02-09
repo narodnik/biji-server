@@ -75,6 +75,7 @@ class Multipart:
         # Once we have all parts
         # ID of combined should be re-computable
         if compute_id(combined_payload) != data_id:
+            print("ID for payload does not match... Buffering chunk")
             return None
 
         # Delete entry since it's fulfilled
@@ -84,6 +85,7 @@ class Multipart:
         try:
             return json.loads(combined_payload)
         except json.decoder.JSONDecodeError:
+            print("Error: JSON is wrong")
             return None
 
 async def client():
@@ -107,3 +109,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
